@@ -1,0 +1,37 @@
+args=
+cmd=
+container=
+opts=
+
+all:
+	@echo 'this is dummy'
+
+.PHONY: setup setup.docker.mk
+setup: setup.docker.mk docker.build
+setup.docker.mk:
+	@ruby ./tools/setup_docker_commands.rb
+
+.PHONY: aws.exec
+aws.exec:
+	AWS_PROFILE=private aws ${cmd} ${args}
+
+.PHONY: docker.cmd docker.build docker.run docker.up docker.stop docker.restart docker.restart.force
+docker.cmd:
+	docker compose ${cmd} ${opts} ${container} ${args}
+docker.build:
+	make docker.cmd cmd='build'
+docker.run:
+	make docker.cmd cmd='run' opts='--rm -it'
+docker.up:
+	make docker.cmd cmd='up' opts='-d'
+docker.stop:
+	make docker.cmd cmd='stop'
+docker.restart:
+	make docker.cmd cmd='restart'
+docker.reboot:
+	make docker.stop && make docker.up
+
+include makefiles/docker.mk
+include makefiles/front.mk
+include makefiles/api.mk
+include makefiles/api-dev.mk

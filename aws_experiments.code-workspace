@@ -1,0 +1,44 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "./"
+    },
+    {
+      "name": "front",
+      "path": "./apps/front"
+    },
+    {
+      "name": "api",
+      "path": "./apps/api"
+    }
+  ],
+  "settings": {
+    "npm.packageManager": "pnpm",
+    "eslint.workingDirectories": [
+      { "pattern": "./apps/front" }
+    ],
+    "solargraph.transport": "external",
+    "solargraph.useBundler": true,
+    "solargraph.externalServer": {
+      "host": "localhost",
+      "port": 7658
+    },
+    "solargraph.autoformat": true,
+    "solargraph.diagnostics": true,
+    "[ruby]": {
+      "editor.defaultFormatter": "Shopify.ruby-lsp",
+      "editor.formatOnSave": true
+    },
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true,
+			"**/.ruby-lsp": true,
+			"apps/**": true
+		}
+  }
+}

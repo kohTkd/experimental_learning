@@ -1,0 +1,116 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+    - 'db/schema.rb'
+    - 'bin/*'
+  TargetRubyVersion: 3.2
+
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+Lint/MixedRegexpCaptureTypes:
+  Enabled: false
+
+Lint/BooleanSymbol:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DocumentationMethod:
+  Enabled: false
+
+Style/HashEachMethods:
+  Enabled: false
+
+Style/MultilineBlockChain:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Lint/InterpolationCheck:
+  Exclude:
+    - 'spec/**/*.rb'
+
+Layout/EndOfLine:
+  EnforcedStyle: lf
+
+Layout/HeredocIndentation:
+  Enabled: true
+
+Lint/UselessAccessModifier:
+  MethodCreatingMethods:
+    - 'def_matcher'
+    - 'def_node_matcher'
+
+Layout/LineLength:
+  Max: 120
+  # To make it possible to copy or click on URIs in the code, we allow lines
+  # containing a URI to be longer than Max.
+  AllowHeredoc: true
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
+
+Metrics/AbcSize:
+  Max: 18
+  Exclude:
+    - 'db/migrate/*'
+    - '**/concerns/**/*.rb'
+    - '**/base*.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - '**/concerns/**/*.rb'
+    - '**/base*.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+    - 'config/**/*.rb'
+    - 'db/**/*.rb'
+    - '**/concerns/**/*.rb'
+
+Metrics/ClassLength:
+  CountComments: false  # count full line comments?
+  Max: 180
+  Exclude:
+    - 'app/services/**/*.rb'
+
+Metrics/MethodLength:
+  Max: 15
+  Exclude:
+    - 'db/migrate/*'
+    - '**/concerns/**/*.rb'
+    - '**/base*.rb'
+
+Metrics/ModuleLength:
+  CountComments: false
+  Exclude:
+    - 'spec/**/*.rb'
+  Max: 200
+
+Naming/MethodParameterName:
+  MinNameLength: 2
+
+Metrics/ParameterLists:
+  Exclude:
+    - '**/concerns/**/*.rb'
+
+Style/IfUnlessModifier:
+  Enabled: true
+
+Style/WhileUntilModifier:
+  Enabled: true

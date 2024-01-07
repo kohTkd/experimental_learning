@@ -1,0 +1,29 @@
+version: "3.8"
+volumes:
+  bundler:
+    driver: local
+  pnpm:
+    driver: local
+  db-date:
+services:
+  api:
+    build:
+      context: ./apps/api
+      # apiディレクトリからの相対パス
+      dockerfile: ../../docker/api/Dockerfile
+    volumes:
+      - ./apps/api:/app
+      - bundler:/app/vendor/bundle
+    ports:
+      - 5000:3000
+  front:
+    build:
+      context: ./apps/front
+      # frontディレクトリからの相対パス
+      dockerfile: ../../docker/front/Dockerfile
+    volumes:
+      - ./apps/front:/app
+      - pnpm:/app/.pnpm-store
+    command: ["pnpm", "run", "dev"]
+    ports:
+      - 3000:3000
