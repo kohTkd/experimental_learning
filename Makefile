@@ -31,7 +31,4 @@ docker.restart:
 docker.reboot:
 	make docker.stop && make docker.up
 
-include makefiles/docker.mk
-include makefiles/front.mk
-include makefiles/api.mk
-include makefiles/api-dev.mk
+include makefiles/*

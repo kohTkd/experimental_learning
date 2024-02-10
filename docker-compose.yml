@@ -4,18 +4,23 @@ volumes:
     driver: local
   pnpm:
     driver: local
-  db-date:
+  main_db:
+    driver: local
+  auth_db:
+    driver: local
 services:
-  api:
+  api-main:
     build:
-      context: ./apps/api
-      # apiディレクトリからの相対パス
-      dockerfile: ../../docker/api/Dockerfile
+      context: ./apps/api/main
+      # api/mainディレクトリからの相対パス
+      dockerfile: ../../../docker/api/main/Dockerfile
     volumes:
-      - ./apps/api:/app
+      - ./apps/api/main:/app
       - bundler:/app/vendor/bundle
     ports:
       - 5000:3000
+    env_file:
+      - env_files/api.main.env
   front:
     build:
       context: ./apps/front
@@ -27,3 +32,11 @@ services:
     command: ["pnpm", "run", "dev"]
     ports:
       - 3000:3000
+  database-main:
+    build:
+      context: ./databases/main
+      dockerfile: ../../docker/databases/main/Dockerfile
+    volumes:
+      - main_db:/var/lib/postgresql/data
+    env_file:
+      - env_files/api.main.env

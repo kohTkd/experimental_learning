@@ -9,8 +9,12 @@
       "path": "./apps/front"
     },
     {
-      "name": "api",
-      "path": "./apps/api"
+      "name": "api/main",
+      "path": "./apps/api/main"
+    },
+    {
+      "name": "api/auth",
+      "path": "./apps/api/auth"
     }
   ],
   "settings": {
@@ -30,6 +34,7 @@
       "editor.defaultFormatter": "Shopify.ruby-lsp",
       "editor.formatOnSave": true
     },
+    "makefile.buildBeforeLaunch": false,
 		"files.exclude": {
 			"**/.git": true,
 			"**/.svn": true,
@@ -39,6 +44,7 @@
 			"**/Thumbs.db": true,
 			"**/.ruby-lsp": true,
 			"apps/**": true
-		}
+    },
+    "rubyLsp.rubyVersionManager": "asdf"
   }
 }
