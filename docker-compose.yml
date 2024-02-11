@@ -9,6 +9,17 @@ volumes:
   auth_db:
     driver: local
 services:
+  front:
+    build:
+      context: ./apps/front
+      # frontディレクトリからの相対パス
+      dockerfile: ../../docker/front/Dockerfile
+    volumes:
+      - ./apps/front:/app
+      - pnpm:/app/.pnpm-store
+    command: ["pnpm", "run", "dev"]
+    ports:
+      - 3000:3000
   api-main:
     build:
       context: ./apps/api/main
@@ -21,17 +32,15 @@ services:
       - 5000:3000
     env_file:
       - env_files/api.main.env
-  front:
+  api-auth:
     build:
-      context: ./apps/front
-      # frontディレクトリからの相対パス
-      dockerfile: ../../docker/front/Dockerfile
+      context: ./apps/api/auth
+      # api/mainディレクトリからの相対パス
+      dockerfile: ../../../docker/api/auth/Dockerfile
     volumes:
-      - ./apps/front:/app
-      - pnpm:/app/.pnpm-store
-    command: ["pnpm", "run", "dev"]
+      - ./apps/api/auth:/app
     ports:
-      - 3000:3000
+      - 8080:8080
   database-main:
     build:
       context: ./databases/main

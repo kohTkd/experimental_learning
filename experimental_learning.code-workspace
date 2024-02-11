@@ -15,6 +15,10 @@
     {
       "name": "api/auth",
       "path": "./apps/api/auth"
+    },
+    {
+      "name": "proto",
+      "path": "./proto"
     }
   ],
   "settings": {
@@ -34,7 +38,6 @@
       "editor.defaultFormatter": "Shopify.ruby-lsp",
       "editor.formatOnSave": true
     },
-    "makefile.buildBeforeLaunch": false,
 		"files.exclude": {
 			"**/.git": true,
 			"**/.svn": true,
@@ -43,8 +46,10 @@
 			"**/.DS_Store": true,
 			"**/Thumbs.db": true,
 			"**/.ruby-lsp": true,
-			"apps/**": true
+			"apps/**": true,
+      "proto": true
     },
-    "rubyLsp.rubyVersionManager": "asdf"
+    "rubyLsp.rubyVersionManager": "asdf",
+    "rubyLsp.formatter": "syntax_tree"
   }
 }

@@ -1,12 +1,19 @@
 version: "3.8"
 services:
   api-main-dev:
-    image: aws_experiments-api
+    image: experimental_learning-api-mai
     volumes:
       - ./apps/api/main:/app
       - bundler:/app/vendor/bundle
       - ./apps/api/main/.rubocop.yml:/root/.rubocop.yml
-      - ./aoos/api/main/.solargraph.yml:/root/.config/solargraph/config.yml
+      - ./apps/api/main/.solargraph.yml:/root/.config/solargraph/config.yml
     command: bundle exec solargraph socket --host=0.0.0.0 --port=7658
     ports:
       - 7658:7658
+  protobuf:
+    build:
+      context: ./docker/tools/protobuf
+    volumes:
+      - ./proto:/src
+      - ./apps/api/auth/src/grpc:/dist/server/go
+      - ./apps/api/main/lib/grpc:/dist/client/ruby

@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "github.com/kohTkd/experimental_learning";
+
+package hello;
+
+service HelloWorld {
+  rpc Hello (HelloRequest) returns (HelloResponse) {}
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string message = 1;
+}
