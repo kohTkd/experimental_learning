@@ -15,7 +15,7 @@ setup.docker.mk:
 aws.exec:
 	AWS_PROFILE=private aws ${cmd} ${args}
 
-.PHONY: docker.cmd docker.build docker.run docker.up docker.stop docker.restart docker.restart.force
+.PHONY: docker.cmd docker.build docker.run docker.up docker.stop docker.restart docker.reboot docker.logs docker.attach
 docker.cmd:
 	docker compose ${cmd} ${opts} ${container} ${args}
 docker.build:
@@ -30,5 +30,9 @@ docker.restart:
 	make docker.cmd cmd='restart'
 docker.reboot:
 	make docker.stop && make docker.up
+docker.logs:
+	make docker.cmd cmd='logs'
+docker.attach:
+	make docker.cmd cmd='exec' opts='-it' args='sh'
 
 include makefiles/*

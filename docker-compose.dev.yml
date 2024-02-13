@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   api-main-dev:
-    image: experimental_learning-api-mai
+    image: experimental_learning-api-main
     volumes:
       - ./apps/api/main:/app
       - bundler:/app/vendor/bundle
@@ -13,7 +13,9 @@ services:
   protobuf:
     build:
       context: ./docker/tools/protobuf
+    platform: linux/amd64
     volumes:
-      - ./proto:/src
-      - ./apps/api/auth/src/grpc:/dist/server/go
+      - ./docker/tools/protobuf/protoc.sh:/usr/local/bin/protoc.sh
+      - ./apps/api/auth/api:/src/auth
+      - ./apps/api/auth/internal/adapter/grpc:/dist/server/auth/go
       - ./apps/api/main/lib/grpc:/dist/client/ruby

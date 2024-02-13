@@ -1,4 +1,4 @@
-.PHONY: docker.api-main.build docker.api-main.run docker.api-main.up docker.api-main.stop docker.api-main.restart docker.api-main.reboot
+.PHONY: docker.api-main.build docker.api-main.run docker.api-main.up docker.api-main.stop docker.api-main.restart docker.api-main.reboot docker.api-main.logs docker.api-main.attach
 docker.api-main.build:
 	make docker.build container='api-main'
 docker.api-main.run:
@@ -11,8 +11,12 @@ docker.api-main.restart:
 	make docker.restart container='api-main'
 docker.api-main.reboot:
 	make docker.reboot container='api-main'
+docker.api-main.logs:
+	make docker.logs container='api-main'
+docker.api-main.attach:
+	make docker.attach container='api-main'
 
-.PHONY: docker.api-auth.build docker.api-auth.run docker.api-auth.up docker.api-auth.stop docker.api-auth.restart docker.api-auth.reboot
+.PHONY: docker.api-auth.build docker.api-auth.run docker.api-auth.up docker.api-auth.stop docker.api-auth.restart docker.api-auth.reboot docker.api-auth.logs docker.api-auth.attach
 docker.api-auth.build:
 	make docker.build container='api-auth'
 docker.api-auth.run:
@@ -25,8 +29,12 @@ docker.api-auth.restart:
 	make docker.restart container='api-auth'
 docker.api-auth.reboot:
 	make docker.reboot container='api-auth'
+docker.api-auth.logs:
+	make docker.logs container='api-auth'
+docker.api-auth.attach:
+	make docker.attach container='api-auth'
 
-.PHONY: docker.front.build docker.front.run docker.front.up docker.front.stop docker.front.restart docker.front.reboot
+.PHONY: docker.front.build docker.front.run docker.front.up docker.front.stop docker.front.restart docker.front.reboot docker.front.logs docker.front.attach
 docker.front.build:
 	make docker.build container='front'
 docker.front.run:
@@ -39,4 +47,8 @@ docker.front.restart:
 	make docker.restart container='front'
 docker.front.reboot:
 	make docker.reboot container='front'
+docker.front.logs:
+	make docker.logs container='front'
+docker.front.attach:
+	make docker.attach container='front'
 

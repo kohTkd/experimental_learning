@@ -5,12 +5,21 @@ exclude:
 - spec/**/*
 - vendor/**/*
 - ".bundle/**/*"
+- 'lib/grpc/**/*'
 - Gemfile
-require: []
+require:
+  - actioncable
+  - actionmailer
+  - actionpack
+  - actionview
+  - activejob
+  - activemodel
+  - activerecord
+  - activestorage
+  - activesupport
 domains: []
 reporters:
 - rubocop
-- require_not_found
 formatter:
   rubocop:
     cops: safe

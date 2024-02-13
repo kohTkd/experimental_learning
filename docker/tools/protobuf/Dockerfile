@@ -10,9 +10,13 @@ RUN mkdir -p /dist && \
     mkdir -p /dist/client/ruby
 
 RUN apk update && \
-    apk add ruby protoc && \
+    apk add --no-cache ruby protoc gcompat && \
+    # ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2 && \
     gem install grpc-tools && \
     go install google.golang.org/protobuf/cmd/protoc-gen-go@latest && \
-    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+    go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest && \
+    gem install grpc grpc-tools
 
-CMD protoc --go-grpc_out=/dist/server/go --go_out=/dist/server/go --go_opt=paths=source_relative --go-grpc_opt require_unimplemented_servers=false --go-grpc_opt paths=source_relative --ruby_out=/dist/client/ruby ./**/*.proto
+COPY protoc.sh /usr/local/bin/protoc.sh
+
+CMD sh /usr/local/bin/protoc.sh

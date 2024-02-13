@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "github.com/kohTkd/experimental_learning";
+option go_package = "github.com/kohTkd/experimental_learning/internal/adapter/grpc";
 
 package hello;
 

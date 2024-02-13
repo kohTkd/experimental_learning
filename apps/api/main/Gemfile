@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 
 ruby '3.2.1'
 
+gem 'grpc'
+gem 'grpc-tools'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.1.2'
 
@@ -41,6 +44,7 @@ group :development, :test do
 
   gem 'pry'
   gem 'simplecov', require: false, group: :test
+  gem 'syntax_tree'
 end
 
 group :development do

@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.24.4
-// source: auth_proto/hello.proto
+// source: hello.proto
 
-package experimental_learning
+package grpc
 
 import (
 	context "context"
@@ -47,19 +47,21 @@ func (c *helloWorldClient) Hello(ctx context.Context, in *HelloRequest, opts ...
 }
 
 // HelloWorldServer is the server API for HelloWorld service.
-// All implementations should embed UnimplementedHelloWorldServer
+// All implementations must embed UnimplementedHelloWorldServer
 // for forward compatibility
 type HelloWorldServer interface {
 	Hello(context.Context, *HelloRequest) (*HelloResponse, error)
+	mustEmbedUnimplementedHelloWorldServer()
 }
 
-// UnimplementedHelloWorldServer should be embedded to have forward compatible implementations.
+// UnimplementedHelloWorldServer must be embedded to have forward compatible implementations.
 type UnimplementedHelloWorldServer struct {
 }
 
 func (UnimplementedHelloWorldServer) Hello(context.Context, *HelloRequest) (*HelloResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Hello not implemented")
 }
+func (UnimplementedHelloWorldServer) mustEmbedUnimplementedHelloWorldServer() {}
 
 // UnsafeHelloWorldServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to HelloWorldServer will
@@ -103,5 +105,5 @@ var HelloWorld_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "auth_proto/hello.proto",
+	Metadata: "hello.proto",
 }

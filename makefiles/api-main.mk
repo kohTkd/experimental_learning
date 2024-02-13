@@ -1,6 +1,6 @@
 .PHONY: bundle bundle.install bundle.exec
 bundle:
-	make docker.api.run args="bundle ${args}"
+	make docker.api-main.run args="bundle ${args}"
 bundle.install:
 	make bundle args='install'
 bundle.exec:
@@ -16,7 +16,7 @@ rspec:
 
 .PHONY: rails rails.console rails.routes rails.pry
 rails:
-	make bundler.exec args="rails ${args}"
+	make bundle.exec args="rails ${args}"
 rails.console:
 	make rails args='c'
 rails.routes:

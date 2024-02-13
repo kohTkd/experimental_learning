@@ -2,6 +2,8 @@ version: "3.8"
 volumes:
   bundler:
     driver: local
+  go_vendor:
+    driver: local
   pnpm:
     driver: local
   main_db:
@@ -41,6 +43,9 @@ services:
       - ./apps/api/auth:/app
     ports:
       - 8080:8080
+    environment:
+      GOPRIVATE: "github.com/kohTkd/*"
+      CGO_ENABLED: 0
   database-main:
     build:
       context: ./databases/main

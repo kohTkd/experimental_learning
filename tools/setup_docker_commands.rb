@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 CONTAINERS = %w[api-main api-auth front].freeze
-COMMANDS = %w[build run up stop restart reboot].freeze
+COMMANDS = %w[build run up stop restart reboot logs attach].freeze
 
 File.open("#{__dir__}/../makefiles/docker.mk", 'w') do |f|
   CONTAINERS.each do |container|

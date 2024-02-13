@@ -6,6 +6,8 @@ AllCops:
     - 'tmp/**/*'
     - 'db/schema.rb'
     - 'bin/*'
+    - 'lib/grpc/*'
+    - 'lib/grpc/**/*'
   TargetRubyVersion: 3.2
 
 require:

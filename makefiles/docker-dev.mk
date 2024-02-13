@@ -13,7 +13,7 @@ docker.api-main-dev.stop:
 docker.api-main-dev.restart:
 	make docker.api-main-dev cmd='restart'
 docker.api-main-dev.reboot:
-	make docker.api-main-dev.stop && make api-main-dev.up
+	make docker.api-main-dev.stop && make docker.api-main-dev.up
 
 .PHONY: docker.proto docker.proto.build docker.proto.run
 docker.proto:

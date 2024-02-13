@@ -9,16 +9,12 @@
       "path": "./apps/front"
     },
     {
-      "name": "api/main",
-      "path": "./apps/api/main"
-    },
-    {
       "name": "api/auth",
       "path": "./apps/api/auth"
     },
     {
-      "name": "proto",
-      "path": "./proto"
+      "name": "api/main",
+      "path": "./apps/api/main"
     }
   ],
   "settings": {
@@ -36,7 +32,7 @@
     "solargraph.diagnostics": true,
     "[ruby]": {
       "editor.defaultFormatter": "Shopify.ruby-lsp",
-      "editor.formatOnSave": true
+      "editor.formatOnSave": false
     },
 		"files.exclude": {
 			"**/.git": true,
@@ -47,7 +43,6 @@
 			"**/Thumbs.db": true,
 			"**/.ruby-lsp": true,
 			"apps/**": true,
-      "proto": true
     },
     "rubyLsp.rubyVersionManager": "asdf",
     "rubyLsp.formatter": "syntax_tree"

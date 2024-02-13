@@ -3,6 +3,12 @@ FROM golang:${GO_VERSION}-alpine
 
 WORKDIR /app
 
+RUN apk update && \
+    apk add git && \
+    go install github.com/cosmtrek/air@latest
+
 COPY go.mod go.sum /app/
 
-CMD [go run src/main.go]
+RUN go mod download
+
+CMD ["air", "-c", ".air.toml"]
