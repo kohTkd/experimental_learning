@@ -1,18 +1,23 @@
 # frozen_string_literal: true
 
-CONTAINERS = %w[api-main api-auth front].freeze
-COMMANDS = %w[build run up stop restart reboot logs attach].freeze
+APP_CONTAINERS = %w[api-main api-auth front].freeze
+APP_COMMANDS = %w[build run up stop restart reboot logs attach].freeze
+
+DB_CONTAINERS = %w[database-main database-auth].freeze
+DB_COMMANDS = %w[build up stop logs].freeze
 
 File.open("#{__dir__}/../makefiles/docker.mk", 'w') do |f|
-  CONTAINERS.each do |container|
-    puts "Defining docker.#{container} commands..."
-    f.puts ".PHONY: #{COMMANDS.map { |command| "docker.#{container}.#{command}" }.join(' ')}"
-    COMMANDS.each do |command|
-      puts "\tdocker.#{container}.#{command}"
-      f.puts "docker.#{container}.#{command}:"
-      f.puts "\tmake docker.#{command} container='#{container}'"
+  [[APP_CONTAINERS, APP_COMMANDS], [DB_CONTAINERS, DB_COMMANDS]].each do |containers, commands|
+    containers.each do |container|
+      puts "Defining docker.#{container} commands..."
+      f.puts ".PHONY: #{commands.map { |command| "docker.#{container}.#{command}" }.join(' ')}"
+      commands.each do |command|
+        puts "\tdocker.#{container}.#{command}"
+        f.puts "docker.#{container}.#{command}:"
+        f.puts "\tmake docker.#{command} container='#{container}'"
+      end
+      f.puts ''
+      puts 'Done.'
     end
-    f.puts ''
-    puts 'Done.'
   end
 end

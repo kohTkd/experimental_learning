@@ -52,3 +52,23 @@ docker.front.logs:
 docker.front.attach:
 	make docker.attach container='front'
 
+.PHONY: docker.database-main.build docker.database-main.up docker.database-main.stop docker.database-main.logs
+docker.database-main.build:
+	make docker.build container='database-main'
+docker.database-main.up:
+	make docker.up container='database-main'
+docker.database-main.stop:
+	make docker.stop container='database-main'
+docker.database-main.logs:
+	make docker.logs container='database-main'
+
+.PHONY: docker.database-auth.build docker.database-auth.up docker.database-auth.stop docker.database-auth.logs
+docker.database-auth.build:
+	make docker.build container='database-auth'
+docker.database-auth.up:
+	make docker.up container='database-auth'
+docker.database-auth.stop:
+	make docker.stop container='database-auth'
+docker.database-auth.logs:
+	make docker.logs container='database-auth'
+

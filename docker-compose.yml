@@ -2,7 +2,7 @@ version: "3.8"
 volumes:
   bundler:
     driver: local
-  go_vendor:
+  go_pkg:
     driver: local
   pnpm:
     driver: local
@@ -41,11 +41,20 @@ services:
       dockerfile: ../../../docker/api/auth/Dockerfile
     volumes:
       - ./apps/api/auth:/app
+      - go_pkg:/go/pkg/mod
     ports:
       - 8080:8080
     environment:
       GOPRIVATE: "github.com/kohTkd/*"
       CGO_ENABLED: 0
+  database-auth:
+    build:
+      context: ./databases/auth
+      dockerfile: ../../docker/databases/auth/Dockerfile
+    volumes:
+      - auth_db:/var/lib/mysql
+    env_file:
+      - env_files/api.auth.env
   database-main:
     build:
       context: ./databases/main
