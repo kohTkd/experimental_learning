@@ -12,12 +12,14 @@ go.run:
 go.generate:
 	make go args="generate ${args}"
 
-.PHONY: go.ent go.ent.init
+.PHONY: go.ent go.ent.new go.ent.generate
 go.ent:
 	make go.run args="entgo.io/ent/cmd/ent ${args}"
 go.ent.new:
 	make go.ent args="new ${args}"
-
-.PHONY: go.generate.ent
-go.generate.ent:
+go.ent.generate:
 	make go.generate args='./ent'
+
+.PHONY: go.lint
+go.lint:
+	make docker.api-auth.run args='staticcheck ./...'

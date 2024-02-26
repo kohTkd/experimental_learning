@@ -5,7 +5,8 @@ WORKDIR /app
 
 RUN apk update && \
     apk add git && \
-    go install github.com/cosmtrek/air@latest
+    go install github.com/cosmtrek/air@latest && \
+    go install honnef.co/go/tools/cmd/staticcheck@latest
 
 COPY go.mod go.sum /app/
 
