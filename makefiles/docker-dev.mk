@@ -17,7 +17,7 @@ docker.api-main-dev.reboot:
 
 .PHONY: docker.proto docker.proto.build docker.proto.run
 docker.proto:
-	make docker.dev container='protobuf'
+	make docker.dev container='protoc'
 docker.proto.build:
 	make docker.proto cmd='build'
 docker.proto.run:
