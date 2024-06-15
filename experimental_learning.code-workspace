@@ -44,7 +44,9 @@
 			"**/.ruby-lsp": true,
 			"apps/**": true,
     },
-    "rubyLsp.rubyVersionManager": "asdf",
+    "rubyLsp.rubyVersionManager": {
+      "identifier": "asdf"
+    },
     "rubyLsp.formatter": "syntax_tree"
   }
 }
