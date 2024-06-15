@@ -31,7 +31,7 @@ func main() {
 	s.Listen()
 }
 
-func newRegistry(c *store.Client) *registry.Registry {
+func newRegistry(c *repository.Client) *registry.Registry {
 	return registry.NewRegistry(c)
 }
 
