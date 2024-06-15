@@ -8,7 +8,7 @@ import (
 	"github.com/kohTkd/experimental_learning/ent"
 	"github.com/kohTkd/experimental_learning/ent/migrate"
 	"github.com/kohTkd/experimental_learning/internal/config"
-	store "github.com/kohTkd/experimental_learning/internal/infrastructure/repository"
+	"github.com/kohTkd/experimental_learning/internal/infrastructure/repository"
 	"github.com/kohTkd/experimental_learning/internal/util/environment"
 )
 
@@ -25,7 +25,7 @@ func init() {
 }
 
 func main() {
-	client, err := store.NewClient()
+	client, err := repository.NewClient()
 	if err != nil {
 		log.Fatalf("failed opening mysql client: %v", err)
 	}
