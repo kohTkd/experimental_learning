@@ -34,5 +34,7 @@ docker.logs:
 	make docker.cmd cmd='logs'
 docker.attach:
 	make docker.cmd cmd='exec' opts='-it' args='sh'
+docker.down:
+	make docker.cmd cmd='down'
 
 include makefiles/*

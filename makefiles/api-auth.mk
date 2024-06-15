@@ -7,18 +7,22 @@ go.clean:
 	make go args="clean -i ${args}"
 go.install:
 	make go args='mod download'
+go.tidy:
+	make go args='mod tidy'
 go.run:
 	make go args="run -mod=mod ${args}"
 go.generate:
 	make go args="generate ${args}"
 
-.PHONY: go.ent go.ent.new go.ent.generate
+.PHONY: go.ent go.ent.new go.ent.generate go.ent.migrate
 go.ent:
 	make go.run args="entgo.io/ent/cmd/ent ${args}"
 go.ent.new:
 	make go.ent args="new ${args}"
 go.ent.generate:
 	make go.generate args='./ent'
+go.ent.migrate:
+	make go.run args='cmd/migration/main.go'
 
 .PHONY: go.lint
 go.lint:
