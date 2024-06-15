@@ -1,0 +1,41 @@
+default: &default
+  database:
+    reader: &reader
+      user: ${DB_READ_USER}
+      password: ${DB_READ_PASSWORD}
+      net: tcp
+      addr: ${DB_READ_HOST}:3306
+      dbname: ${DB_NAME}
+      allowNativePasswords: true
+      params:
+        parseTime: true
+        charset: utf8mb4
+        loc: Asia/Tokyo
+    writer: &writer
+      user: ${DB_WRITE_USER}
+      password: ${DB_WRITE_PASSWORD}
+      net: tcp
+      addr: ${DB_WRITE_HOST}:3306
+      dbname: ${DB_NAME}
+      allowNativePasswords: true
+      params:
+        parseTime: true
+        charset: utf8mb4
+        loc: Asia/Tokyo
+  server: &server
+    port: 8080
+
+development:
+  <<: *default
+test:
+  <<: *default
+  database:
+    reader:
+      <<: *reader
+      dbname: ${DB_TEST_NAME}
+    writer:
+      <<: *writer
+      dbname: ${DB_TEST_NAME}
+
+production:
+  <<: *default
