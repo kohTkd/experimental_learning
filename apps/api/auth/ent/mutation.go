@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"sync"
+	"time"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
@@ -29,17 +30,17 @@ const (
 // AccountsMutation represents an operation that mutates the Accounts nodes in the graph.
 type AccountsMutation struct {
 	config
-	op              Op
-	typ             string
-	id              *int
-	email           *string
-	account_type    *int
-	addaccount_type *int
-	password        *string
-	clearedFields   map[string]struct{}
-	done            bool
-	oldValue        func(context.Context) (*Accounts, error)
-	predicates      []predicate.Accounts
+	op            Op
+	typ           string
+	id            *int
+	email         *string
+	password      *string
+	created_at    *time.Time
+	update_at     *time.Time
+	clearedFields map[string]struct{}
+	done          bool
+	oldValue      func(context.Context) (*Accounts, error)
+	predicates    []predicate.Accounts
 }
 
 var _ ent.Mutation = (*AccountsMutation)(nil)
@@ -176,62 +177,6 @@ func (m *AccountsMutation) ResetEmail() {
 	m.email = nil
 }
 
-// SetAccountType sets the "account_type" field.
-func (m *AccountsMutation) SetAccountType(i int) {
-	m.account_type = &i
-	m.addaccount_type = nil
-}
-
-// AccountType returns the value of the "account_type" field in the mutation.
-func (m *AccountsMutation) AccountType() (r int, exists bool) {
-	v := m.account_type
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// OldAccountType returns the old "account_type" field's value of the Accounts entity.
-// If the Accounts object wasn't provided to the builder, the object is fetched from the database.
-// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *AccountsMutation) OldAccountType(ctx context.Context) (v int, err error) {
-	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldAccountType is only allowed on UpdateOne operations")
-	}
-	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldAccountType requires an ID field in the mutation")
-	}
-	oldValue, err := m.oldValue(ctx)
-	if err != nil {
-		return v, fmt.Errorf("querying old value for OldAccountType: %w", err)
-	}
-	return oldValue.AccountType, nil
-}
-
-// AddAccountType adds i to the "account_type" field.
-func (m *AccountsMutation) AddAccountType(i int) {
-	if m.addaccount_type != nil {
-		*m.addaccount_type += i
-	} else {
-		m.addaccount_type = &i
-	}
-}
-
-// AddedAccountType returns the value that was added to the "account_type" field in this mutation.
-func (m *AccountsMutation) AddedAccountType() (r int, exists bool) {
-	v := m.addaccount_type
-	if v == nil {
-		return
-	}
-	return *v, true
-}
-
-// ResetAccountType resets all changes to the "account_type" field.
-func (m *AccountsMutation) ResetAccountType() {
-	m.account_type = nil
-	m.addaccount_type = nil
-}
-
 // SetPassword sets the "password" field.
 func (m *AccountsMutation) SetPassword(s string) {
 	m.password = &s
@@ -268,6 +213,78 @@ func (m *AccountsMutation) ResetPassword() {
 	m.password = nil
 }
 
+// SetCreatedAt sets the "created_at" field.
+func (m *AccountsMutation) SetCreatedAt(t time.Time) {
+	m.created_at = &t
+}
+
+// CreatedAt returns the value of the "created_at" field in the mutation.
+func (m *AccountsMutation) CreatedAt() (r time.Time, exists bool) {
+	v := m.created_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldCreatedAt returns the old "created_at" field's value of the Accounts entity.
+// If the Accounts object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AccountsMutation) OldCreatedAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldCreatedAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldCreatedAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldCreatedAt: %w", err)
+	}
+	return oldValue.CreatedAt, nil
+}
+
+// ResetCreatedAt resets all changes to the "created_at" field.
+func (m *AccountsMutation) ResetCreatedAt() {
+	m.created_at = nil
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (m *AccountsMutation) SetUpdateAt(t time.Time) {
+	m.update_at = &t
+}
+
+// UpdateAt returns the value of the "update_at" field in the mutation.
+func (m *AccountsMutation) UpdateAt() (r time.Time, exists bool) {
+	v := m.update_at
+	if v == nil {
+		return
+	}
+	return *v, true
+}
+
+// OldUpdateAt returns the old "update_at" field's value of the Accounts entity.
+// If the Accounts object wasn't provided to the builder, the object is fetched from the database.
+// An error is returned if the mutation operation is not UpdateOne, or the database query fails.
+func (m *AccountsMutation) OldUpdateAt(ctx context.Context) (v time.Time, err error) {
+	if !m.op.Is(OpUpdateOne) {
+		return v, errors.New("OldUpdateAt is only allowed on UpdateOne operations")
+	}
+	if m.id == nil || m.oldValue == nil {
+		return v, errors.New("OldUpdateAt requires an ID field in the mutation")
+	}
+	oldValue, err := m.oldValue(ctx)
+	if err != nil {
+		return v, fmt.Errorf("querying old value for OldUpdateAt: %w", err)
+	}
+	return oldValue.UpdateAt, nil
+}
+
+// ResetUpdateAt resets all changes to the "update_at" field.
+func (m *AccountsMutation) ResetUpdateAt() {
+	m.update_at = nil
+}
+
 // Where appends a list predicates to the AccountsMutation builder.
 func (m *AccountsMutation) Where(ps ...predicate.Accounts) {
 	m.predicates = append(m.predicates, ps...)
@@ -302,15 +319,18 @@ func (m *AccountsMutation) Type() string {
 // order to get all numeric fields that were incremented/decremented, call
 // AddedFields().
 func (m *AccountsMutation) Fields() []string {
-	fields := make([]string, 0, 3)
+	fields := make([]string, 0, 4)
 	if m.email != nil {
 		fields = append(fields, accounts.FieldEmail)
 	}
-	if m.account_type != nil {
-		fields = append(fields, accounts.FieldAccountType)
-	}
 	if m.password != nil {
 		fields = append(fields, accounts.FieldPassword)
+	}
+	if m.created_at != nil {
+		fields = append(fields, accounts.FieldCreatedAt)
+	}
+	if m.update_at != nil {
+		fields = append(fields, accounts.FieldUpdateAt)
 	}
 	return fields
 }
@@ -322,10 +342,12 @@ func (m *AccountsMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case accounts.FieldEmail:
 		return m.Email()
-	case accounts.FieldAccountType:
-		return m.AccountType()
 	case accounts.FieldPassword:
 		return m.Password()
+	case accounts.FieldCreatedAt:
+		return m.CreatedAt()
+	case accounts.FieldUpdateAt:
+		return m.UpdateAt()
 	}
 	return nil, false
 }
@@ -337,10 +359,12 @@ func (m *AccountsMutation) OldField(ctx context.Context, name string) (ent.Value
 	switch name {
 	case accounts.FieldEmail:
 		return m.OldEmail(ctx)
-	case accounts.FieldAccountType:
-		return m.OldAccountType(ctx)
 	case accounts.FieldPassword:
 		return m.OldPassword(ctx)
+	case accounts.FieldCreatedAt:
+		return m.OldCreatedAt(ctx)
+	case accounts.FieldUpdateAt:
+		return m.OldUpdateAt(ctx)
 	}
 	return nil, fmt.Errorf("unknown Accounts field %s", name)
 }
@@ -357,19 +381,26 @@ func (m *AccountsMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetEmail(v)
 		return nil
-	case accounts.FieldAccountType:
-		v, ok := value.(int)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.SetAccountType(v)
-		return nil
 	case accounts.FieldPassword:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
 		m.SetPassword(v)
+		return nil
+	case accounts.FieldCreatedAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetCreatedAt(v)
+		return nil
+	case accounts.FieldUpdateAt:
+		v, ok := value.(time.Time)
+		if !ok {
+			return fmt.Errorf("unexpected type %T for field %s", value, name)
+		}
+		m.SetUpdateAt(v)
 		return nil
 	}
 	return fmt.Errorf("unknown Accounts field %s", name)
@@ -378,21 +409,13 @@ func (m *AccountsMutation) SetField(name string, value ent.Value) error {
 // AddedFields returns all numeric fields that were incremented/decremented during
 // this mutation.
 func (m *AccountsMutation) AddedFields() []string {
-	var fields []string
-	if m.addaccount_type != nil {
-		fields = append(fields, accounts.FieldAccountType)
-	}
-	return fields
+	return nil
 }
 
 // AddedField returns the numeric value that was incremented/decremented on a field
 // with the given name. The second boolean return value indicates that this field
 // was not set, or was not defined in the schema.
 func (m *AccountsMutation) AddedField(name string) (ent.Value, bool) {
-	switch name {
-	case accounts.FieldAccountType:
-		return m.AddedAccountType()
-	}
 	return nil, false
 }
 
@@ -401,13 +424,6 @@ func (m *AccountsMutation) AddedField(name string) (ent.Value, bool) {
 // type.
 func (m *AccountsMutation) AddField(name string, value ent.Value) error {
 	switch name {
-	case accounts.FieldAccountType:
-		v, ok := value.(int)
-		if !ok {
-			return fmt.Errorf("unexpected type %T for field %s", value, name)
-		}
-		m.AddAccountType(v)
-		return nil
 	}
 	return fmt.Errorf("unknown Accounts numeric field %s", name)
 }
@@ -438,11 +454,14 @@ func (m *AccountsMutation) ResetField(name string) error {
 	case accounts.FieldEmail:
 		m.ResetEmail()
 		return nil
-	case accounts.FieldAccountType:
-		m.ResetAccountType()
-		return nil
 	case accounts.FieldPassword:
 		m.ResetPassword()
+		return nil
+	case accounts.FieldCreatedAt:
+		m.ResetCreatedAt()
+		return nil
+	case accounts.FieldUpdateAt:
+		m.ResetUpdateAt()
 		return nil
 	}
 	return fmt.Errorf("unknown Accounts field %s", name)

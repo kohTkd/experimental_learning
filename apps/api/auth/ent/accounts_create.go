@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
@@ -25,15 +26,21 @@ func (ac *AccountsCreate) SetEmail(s string) *AccountsCreate {
 	return ac
 }
 
-// SetAccountType sets the "account_type" field.
-func (ac *AccountsCreate) SetAccountType(i int) *AccountsCreate {
-	ac.mutation.SetAccountType(i)
-	return ac
-}
-
 // SetPassword sets the "password" field.
 func (ac *AccountsCreate) SetPassword(s string) *AccountsCreate {
 	ac.mutation.SetPassword(s)
+	return ac
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (ac *AccountsCreate) SetCreatedAt(t time.Time) *AccountsCreate {
+	ac.mutation.SetCreatedAt(t)
+	return ac
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (ac *AccountsCreate) SetUpdateAt(t time.Time) *AccountsCreate {
+	ac.mutation.SetUpdateAt(t)
 	return ac
 }
 
@@ -74,11 +81,14 @@ func (ac *AccountsCreate) check() error {
 	if _, ok := ac.mutation.Email(); !ok {
 		return &ValidationError{Name: "email", err: errors.New(`ent: missing required field "Accounts.email"`)}
 	}
-	if _, ok := ac.mutation.AccountType(); !ok {
-		return &ValidationError{Name: "account_type", err: errors.New(`ent: missing required field "Accounts.account_type"`)}
-	}
 	if _, ok := ac.mutation.Password(); !ok {
 		return &ValidationError{Name: "password", err: errors.New(`ent: missing required field "Accounts.password"`)}
+	}
+	if _, ok := ac.mutation.CreatedAt(); !ok {
+		return &ValidationError{Name: "created_at", err: errors.New(`ent: missing required field "Accounts.created_at"`)}
+	}
+	if _, ok := ac.mutation.UpdateAt(); !ok {
+		return &ValidationError{Name: "update_at", err: errors.New(`ent: missing required field "Accounts.update_at"`)}
 	}
 	return nil
 }
@@ -110,13 +120,17 @@ func (ac *AccountsCreate) createSpec() (*Accounts, *sqlgraph.CreateSpec) {
 		_spec.SetField(accounts.FieldEmail, field.TypeString, value)
 		_node.Email = value
 	}
-	if value, ok := ac.mutation.AccountType(); ok {
-		_spec.SetField(accounts.FieldAccountType, field.TypeInt, value)
-		_node.AccountType = value
-	}
 	if value, ok := ac.mutation.Password(); ok {
 		_spec.SetField(accounts.FieldPassword, field.TypeString, value)
 		_node.Password = value
+	}
+	if value, ok := ac.mutation.CreatedAt(); ok {
+		_spec.SetField(accounts.FieldCreatedAt, field.TypeTime, value)
+		_node.CreatedAt = value
+	}
+	if value, ok := ac.mutation.UpdateAt(); ok {
+		_spec.SetField(accounts.FieldUpdateAt, field.TypeTime, value)
+		_node.UpdateAt = value
 	}
 	return _node, _spec
 }

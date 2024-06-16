@@ -7,8 +7,6 @@ import (
 	"github.com/kohTkd/experimental_learning/internal/config"
 
 	"entgo.io/ent/dialect"
-
-	"github.com/go-sql-driver/mysql"
 )
 
 type Client struct {
@@ -21,12 +19,12 @@ func NewClient() (*Client, error) {
 
 	var err error
 
-	c.Reader, err = ent.Open(dialect.MySQL, dsn(config.Conf.Database.Reader))
+	c.Reader, err = ent.Open(dialect.MySQL, config.Conf.Database.Reader.Dsn())
 	if err != nil {
 		return nil, fmt.Errorf("failed opening connection to mysql: %v", err)
 	}
 
-	c.Writer, err = ent.Open(dialect.MySQL, dsn(config.Conf.Database.Writer))
+	c.Writer, err = ent.Open(dialect.MySQL, config.Conf.Database.Writer.Dsn())
 	if err != nil {
 		return nil, fmt.Errorf("failed opening connection to mysql: %v", err)
 	}
@@ -37,22 +35,4 @@ func NewClient() (*Client, error) {
 func (c *Client) Close() {
 	c.Reader.Close()
 	c.Writer.Close()
-}
-
-func dsn(conf config.DatabaseConfig) string {
-	mc := mysql.Config{
-		User:                 conf.User,
-		Passwd:               conf.Password,
-		Net:                  conf.Net,
-		Addr:                 conf.Addr,
-		DBName:               conf.Dbname,
-		AllowNativePasswords: conf.AllowNativePasswords,
-		Params: map[string]string{
-			"parseTime": conf.Params.ParseTime,
-			"charset":   conf.Params.Charset,
-			"loc":       conf.Params.Loc,
-		},
-	}
-
-	return mc.FormatDSN()
 }

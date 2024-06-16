@@ -3,6 +3,8 @@
 package accounts
 
 import (
+	"time"
+
 	"entgo.io/ent/dialect/sql"
 	"github.com/kohTkd/experimental_learning/ent/predicate"
 )
@@ -57,14 +59,19 @@ func Email(v string) predicate.Accounts {
 	return predicate.Accounts(sql.FieldEQ(FieldEmail, v))
 }
 
-// AccountType applies equality check predicate on the "account_type" field. It's identical to AccountTypeEQ.
-func AccountType(v int) predicate.Accounts {
-	return predicate.Accounts(sql.FieldEQ(FieldAccountType, v))
-}
-
 // Password applies equality check predicate on the "password" field. It's identical to PasswordEQ.
 func Password(v string) predicate.Accounts {
 	return predicate.Accounts(sql.FieldEQ(FieldPassword, v))
+}
+
+// CreatedAt applies equality check predicate on the "created_at" field. It's identical to CreatedAtEQ.
+func CreatedAt(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldEQ(FieldCreatedAt, v))
+}
+
+// UpdateAt applies equality check predicate on the "update_at" field. It's identical to UpdateAtEQ.
+func UpdateAt(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldEQ(FieldUpdateAt, v))
 }
 
 // EmailEQ applies the EQ predicate on the "email" field.
@@ -132,46 +139,6 @@ func EmailContainsFold(v string) predicate.Accounts {
 	return predicate.Accounts(sql.FieldContainsFold(FieldEmail, v))
 }
 
-// AccountTypeEQ applies the EQ predicate on the "account_type" field.
-func AccountTypeEQ(v int) predicate.Accounts {
-	return predicate.Accounts(sql.FieldEQ(FieldAccountType, v))
-}
-
-// AccountTypeNEQ applies the NEQ predicate on the "account_type" field.
-func AccountTypeNEQ(v int) predicate.Accounts {
-	return predicate.Accounts(sql.FieldNEQ(FieldAccountType, v))
-}
-
-// AccountTypeIn applies the In predicate on the "account_type" field.
-func AccountTypeIn(vs ...int) predicate.Accounts {
-	return predicate.Accounts(sql.FieldIn(FieldAccountType, vs...))
-}
-
-// AccountTypeNotIn applies the NotIn predicate on the "account_type" field.
-func AccountTypeNotIn(vs ...int) predicate.Accounts {
-	return predicate.Accounts(sql.FieldNotIn(FieldAccountType, vs...))
-}
-
-// AccountTypeGT applies the GT predicate on the "account_type" field.
-func AccountTypeGT(v int) predicate.Accounts {
-	return predicate.Accounts(sql.FieldGT(FieldAccountType, v))
-}
-
-// AccountTypeGTE applies the GTE predicate on the "account_type" field.
-func AccountTypeGTE(v int) predicate.Accounts {
-	return predicate.Accounts(sql.FieldGTE(FieldAccountType, v))
-}
-
-// AccountTypeLT applies the LT predicate on the "account_type" field.
-func AccountTypeLT(v int) predicate.Accounts {
-	return predicate.Accounts(sql.FieldLT(FieldAccountType, v))
-}
-
-// AccountTypeLTE applies the LTE predicate on the "account_type" field.
-func AccountTypeLTE(v int) predicate.Accounts {
-	return predicate.Accounts(sql.FieldLTE(FieldAccountType, v))
-}
-
 // PasswordEQ applies the EQ predicate on the "password" field.
 func PasswordEQ(v string) predicate.Accounts {
 	return predicate.Accounts(sql.FieldEQ(FieldPassword, v))
@@ -235,6 +202,86 @@ func PasswordEqualFold(v string) predicate.Accounts {
 // PasswordContainsFold applies the ContainsFold predicate on the "password" field.
 func PasswordContainsFold(v string) predicate.Accounts {
 	return predicate.Accounts(sql.FieldContainsFold(FieldPassword, v))
+}
+
+// CreatedAtEQ applies the EQ predicate on the "created_at" field.
+func CreatedAtEQ(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldEQ(FieldCreatedAt, v))
+}
+
+// CreatedAtNEQ applies the NEQ predicate on the "created_at" field.
+func CreatedAtNEQ(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldNEQ(FieldCreatedAt, v))
+}
+
+// CreatedAtIn applies the In predicate on the "created_at" field.
+func CreatedAtIn(vs ...time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldIn(FieldCreatedAt, vs...))
+}
+
+// CreatedAtNotIn applies the NotIn predicate on the "created_at" field.
+func CreatedAtNotIn(vs ...time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldNotIn(FieldCreatedAt, vs...))
+}
+
+// CreatedAtGT applies the GT predicate on the "created_at" field.
+func CreatedAtGT(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldGT(FieldCreatedAt, v))
+}
+
+// CreatedAtGTE applies the GTE predicate on the "created_at" field.
+func CreatedAtGTE(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldGTE(FieldCreatedAt, v))
+}
+
+// CreatedAtLT applies the LT predicate on the "created_at" field.
+func CreatedAtLT(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldLT(FieldCreatedAt, v))
+}
+
+// CreatedAtLTE applies the LTE predicate on the "created_at" field.
+func CreatedAtLTE(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldLTE(FieldCreatedAt, v))
+}
+
+// UpdateAtEQ applies the EQ predicate on the "update_at" field.
+func UpdateAtEQ(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldEQ(FieldUpdateAt, v))
+}
+
+// UpdateAtNEQ applies the NEQ predicate on the "update_at" field.
+func UpdateAtNEQ(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldNEQ(FieldUpdateAt, v))
+}
+
+// UpdateAtIn applies the In predicate on the "update_at" field.
+func UpdateAtIn(vs ...time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldIn(FieldUpdateAt, vs...))
+}
+
+// UpdateAtNotIn applies the NotIn predicate on the "update_at" field.
+func UpdateAtNotIn(vs ...time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldNotIn(FieldUpdateAt, vs...))
+}
+
+// UpdateAtGT applies the GT predicate on the "update_at" field.
+func UpdateAtGT(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldGT(FieldUpdateAt, v))
+}
+
+// UpdateAtGTE applies the GTE predicate on the "update_at" field.
+func UpdateAtGTE(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldGTE(FieldUpdateAt, v))
+}
+
+// UpdateAtLT applies the LT predicate on the "update_at" field.
+func UpdateAtLT(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldLT(FieldUpdateAt, v))
+}
+
+// UpdateAtLTE applies the LTE predicate on the "update_at" field.
+func UpdateAtLTE(v time.Time) predicate.Accounts {
+	return predicate.Accounts(sql.FieldLTE(FieldUpdateAt, v))
 }
 
 // And groups predicates with the AND operator between them.

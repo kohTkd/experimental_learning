@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
@@ -41,27 +42,6 @@ func (au *AccountsUpdate) SetNillableEmail(s *string) *AccountsUpdate {
 	return au
 }
 
-// SetAccountType sets the "account_type" field.
-func (au *AccountsUpdate) SetAccountType(i int) *AccountsUpdate {
-	au.mutation.ResetAccountType()
-	au.mutation.SetAccountType(i)
-	return au
-}
-
-// SetNillableAccountType sets the "account_type" field if the given value is not nil.
-func (au *AccountsUpdate) SetNillableAccountType(i *int) *AccountsUpdate {
-	if i != nil {
-		au.SetAccountType(*i)
-	}
-	return au
-}
-
-// AddAccountType adds i to the "account_type" field.
-func (au *AccountsUpdate) AddAccountType(i int) *AccountsUpdate {
-	au.mutation.AddAccountType(i)
-	return au
-}
-
 // SetPassword sets the "password" field.
 func (au *AccountsUpdate) SetPassword(s string) *AccountsUpdate {
 	au.mutation.SetPassword(s)
@@ -72,6 +52,34 @@ func (au *AccountsUpdate) SetPassword(s string) *AccountsUpdate {
 func (au *AccountsUpdate) SetNillablePassword(s *string) *AccountsUpdate {
 	if s != nil {
 		au.SetPassword(*s)
+	}
+	return au
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (au *AccountsUpdate) SetCreatedAt(t time.Time) *AccountsUpdate {
+	au.mutation.SetCreatedAt(t)
+	return au
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (au *AccountsUpdate) SetNillableCreatedAt(t *time.Time) *AccountsUpdate {
+	if t != nil {
+		au.SetCreatedAt(*t)
+	}
+	return au
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (au *AccountsUpdate) SetUpdateAt(t time.Time) *AccountsUpdate {
+	au.mutation.SetUpdateAt(t)
+	return au
+}
+
+// SetNillableUpdateAt sets the "update_at" field if the given value is not nil.
+func (au *AccountsUpdate) SetNillableUpdateAt(t *time.Time) *AccountsUpdate {
+	if t != nil {
+		au.SetUpdateAt(*t)
 	}
 	return au
 }
@@ -120,14 +128,14 @@ func (au *AccountsUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := au.mutation.Email(); ok {
 		_spec.SetField(accounts.FieldEmail, field.TypeString, value)
 	}
-	if value, ok := au.mutation.AccountType(); ok {
-		_spec.SetField(accounts.FieldAccountType, field.TypeInt, value)
-	}
-	if value, ok := au.mutation.AddedAccountType(); ok {
-		_spec.AddField(accounts.FieldAccountType, field.TypeInt, value)
-	}
 	if value, ok := au.mutation.Password(); ok {
 		_spec.SetField(accounts.FieldPassword, field.TypeString, value)
+	}
+	if value, ok := au.mutation.CreatedAt(); ok {
+		_spec.SetField(accounts.FieldCreatedAt, field.TypeTime, value)
+	}
+	if value, ok := au.mutation.UpdateAt(); ok {
+		_spec.SetField(accounts.FieldUpdateAt, field.TypeTime, value)
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, au.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -163,27 +171,6 @@ func (auo *AccountsUpdateOne) SetNillableEmail(s *string) *AccountsUpdateOne {
 	return auo
 }
 
-// SetAccountType sets the "account_type" field.
-func (auo *AccountsUpdateOne) SetAccountType(i int) *AccountsUpdateOne {
-	auo.mutation.ResetAccountType()
-	auo.mutation.SetAccountType(i)
-	return auo
-}
-
-// SetNillableAccountType sets the "account_type" field if the given value is not nil.
-func (auo *AccountsUpdateOne) SetNillableAccountType(i *int) *AccountsUpdateOne {
-	if i != nil {
-		auo.SetAccountType(*i)
-	}
-	return auo
-}
-
-// AddAccountType adds i to the "account_type" field.
-func (auo *AccountsUpdateOne) AddAccountType(i int) *AccountsUpdateOne {
-	auo.mutation.AddAccountType(i)
-	return auo
-}
-
 // SetPassword sets the "password" field.
 func (auo *AccountsUpdateOne) SetPassword(s string) *AccountsUpdateOne {
 	auo.mutation.SetPassword(s)
@@ -194,6 +181,34 @@ func (auo *AccountsUpdateOne) SetPassword(s string) *AccountsUpdateOne {
 func (auo *AccountsUpdateOne) SetNillablePassword(s *string) *AccountsUpdateOne {
 	if s != nil {
 		auo.SetPassword(*s)
+	}
+	return auo
+}
+
+// SetCreatedAt sets the "created_at" field.
+func (auo *AccountsUpdateOne) SetCreatedAt(t time.Time) *AccountsUpdateOne {
+	auo.mutation.SetCreatedAt(t)
+	return auo
+}
+
+// SetNillableCreatedAt sets the "created_at" field if the given value is not nil.
+func (auo *AccountsUpdateOne) SetNillableCreatedAt(t *time.Time) *AccountsUpdateOne {
+	if t != nil {
+		auo.SetCreatedAt(*t)
+	}
+	return auo
+}
+
+// SetUpdateAt sets the "update_at" field.
+func (auo *AccountsUpdateOne) SetUpdateAt(t time.Time) *AccountsUpdateOne {
+	auo.mutation.SetUpdateAt(t)
+	return auo
+}
+
+// SetNillableUpdateAt sets the "update_at" field if the given value is not nil.
+func (auo *AccountsUpdateOne) SetNillableUpdateAt(t *time.Time) *AccountsUpdateOne {
+	if t != nil {
+		auo.SetUpdateAt(*t)
 	}
 	return auo
 }
@@ -272,14 +287,14 @@ func (auo *AccountsUpdateOne) sqlSave(ctx context.Context) (_node *Accounts, err
 	if value, ok := auo.mutation.Email(); ok {
 		_spec.SetField(accounts.FieldEmail, field.TypeString, value)
 	}
-	if value, ok := auo.mutation.AccountType(); ok {
-		_spec.SetField(accounts.FieldAccountType, field.TypeInt, value)
-	}
-	if value, ok := auo.mutation.AddedAccountType(); ok {
-		_spec.AddField(accounts.FieldAccountType, field.TypeInt, value)
-	}
 	if value, ok := auo.mutation.Password(); ok {
 		_spec.SetField(accounts.FieldPassword, field.TypeString, value)
+	}
+	if value, ok := auo.mutation.CreatedAt(); ok {
+		_spec.SetField(accounts.FieldCreatedAt, field.TypeTime, value)
+	}
+	if value, ok := auo.mutation.UpdateAt(); ok {
+		_spec.SetField(accounts.FieldUpdateAt, field.TypeTime, value)
 	}
 	_node = &Accounts{config: auo.config}
 	_spec.Assign = _node.assignValues

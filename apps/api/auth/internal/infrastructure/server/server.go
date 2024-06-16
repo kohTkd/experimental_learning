@@ -24,7 +24,7 @@ func NewGrpcServer(port int) *GrpcServer {
 	}
 }
 
-func (g *GrpcServer) RegisterServices(r registry.Registry) {
+func (g *GrpcServer) RegisterServices(r *registry.Registry) {
 	pb.RegisterHelloWorldServer(g.server, r.HelloHandler)
 }
 

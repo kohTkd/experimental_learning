@@ -25,8 +25,10 @@ func init() {
 
 func main() {
 	c, _ := repository.NewClient()
-	r := newRegistry(c) // Pass the dereferenced value of c
-	s := newServer(r)
+	r := newRegistry(c)
+	s := newServer()
+
+	s.RegisterServices(r)
 
 	s.Listen()
 }
@@ -35,8 +37,6 @@ func newRegistry(c *repository.Client) *registry.Registry {
 	return registry.NewRegistry(c)
 }
 
-func newServer(r *registry.Registry) *server.GrpcServer {
-	s := server.NewGrpcServer(config.Conf.Server.Port)
-	s.RegisterServices(*r)
-	return s
+func newServer() *server.GrpcServer {
+	return server.NewGrpcServer(config.Conf.Server.Port)
 }

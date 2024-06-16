@@ -13,9 +13,10 @@ type Accounts struct {
 // Fields of the Accounts.
 func (Accounts) Fields() []ent.Field {
 	return []ent.Field{
-		field.String("email"),
-		field.Int("account_type"),
+		field.String("email").Unique(),
 		field.String("password"),
+		field.Time("created_at"),
+		field.Time("update_at"),
 	}
 }
 

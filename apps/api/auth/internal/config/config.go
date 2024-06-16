@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"runtime"
 
+	"github.com/go-sql-driver/mysql"
 	"github.com/kohTkd/experimental_learning/internal/util/environment"
 	"github.com/spf13/viper"
 )
@@ -73,4 +74,29 @@ func rootDir() string {
 	_, b, _, _ := runtime.Caller(0)
 	d := path.Join(path.Dir(b))
 	return filepath.Dir(d)
+}
+
+func (c DatabaseConfig) Dsn() string {
+	mc := mysql.Config{
+		User:                 c.User,
+		Passwd:               c.Password,
+		Net:                  c.Net,
+		Addr:                 c.Addr,
+		DBName:               c.Dbname,
+		AllowNativePasswords: c.AllowNativePasswords,
+		Params: map[string]string{
+			"parseTime": c.Params.ParseTime,
+			"charset":   c.Params.Charset,
+			"loc":       c.Params.Loc,
+		},
+	}
+
+	return mc.FormatDSN()
+}
+
+func (c DatabaseConfig) MigrationDsn() string {
+	return fmt.Sprintf(
+		"mysql://%s:%s@%s/%s?charset=%s&parseTime=%s",
+		c.User, c.Password, c.Addr, c.Dbname, c.Params.Charset, c.Params.ParseTime,
+	)
 }

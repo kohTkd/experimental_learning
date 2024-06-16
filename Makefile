@@ -22,6 +22,8 @@ docker.build:
 	make docker.cmd cmd='build'
 docker.run:
 	make docker.cmd cmd='run' opts='--rm -it'
+docker.exec:
+	make docker.cmd cmd='exec'
 docker.up:
 	make docker.cmd cmd='up' opts='-d'
 docker.stop:

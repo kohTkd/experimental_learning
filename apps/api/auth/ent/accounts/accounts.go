@@ -13,10 +13,12 @@ const (
 	FieldID = "id"
 	// FieldEmail holds the string denoting the email field in the database.
 	FieldEmail = "email"
-	// FieldAccountType holds the string denoting the account_type field in the database.
-	FieldAccountType = "account_type"
 	// FieldPassword holds the string denoting the password field in the database.
 	FieldPassword = "password"
+	// FieldCreatedAt holds the string denoting the created_at field in the database.
+	FieldCreatedAt = "created_at"
+	// FieldUpdateAt holds the string denoting the update_at field in the database.
+	FieldUpdateAt = "update_at"
 	// Table holds the table name of the accounts in the database.
 	Table = "accounts"
 )
@@ -25,8 +27,9 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldEmail,
-	FieldAccountType,
 	FieldPassword,
+	FieldCreatedAt,
+	FieldUpdateAt,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -52,12 +55,17 @@ func ByEmail(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldEmail, opts...).ToFunc()
 }
 
-// ByAccountType orders the results by the account_type field.
-func ByAccountType(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldAccountType, opts...).ToFunc()
-}
-
 // ByPassword orders the results by the password field.
 func ByPassword(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPassword, opts...).ToFunc()
+}
+
+// ByCreatedAt orders the results by the created_at field.
+func ByCreatedAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldCreatedAt, opts...).ToFunc()
+}
+
+// ByUpdateAt orders the results by the update_at field.
+func ByUpdateAt(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldUpdateAt, opts...).ToFunc()
 }

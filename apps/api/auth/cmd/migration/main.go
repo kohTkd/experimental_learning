@@ -5,10 +5,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/kohTkd/experimental_learning/ent"
+	atlas "ariga.io/atlas/sql/migrate"
+	"entgo.io/ent/dialect"
+	"entgo.io/ent/dialect/sql/schema"
 	"github.com/kohTkd/experimental_learning/ent/migrate"
 	"github.com/kohTkd/experimental_learning/internal/config"
-	"github.com/kohTkd/experimental_learning/internal/infrastructure/repository"
 	"github.com/kohTkd/experimental_learning/internal/util/environment"
 )
 
@@ -25,21 +26,26 @@ func init() {
 }
 
 func main() {
-	client, err := repository.NewClient()
-	if err != nil {
-		log.Fatalf("failed opening mysql client: %v", err)
-	}
-	defer client.Close()
-	createDBSchema(client.Writer)
-}
+	dsn := config.Conf.Database.Writer.MigrationDsn()
+	ctx := context.Background()
 
-func createDBSchema(client *ent.Client) {
-	if err := client.Schema.Create(
-		context.Background(),
-		migrate.WithDropIndex(true),
-		migrate.WithDropColumn(true),
-		migrate.WithForeignKeys(true),
-	); err != nil {
-		log.Fatalf("failed creating schema resources: %v", err)
+	// Create a local migration directory able to understand Atlas migration file format for replay.
+	dir, err := atlas.NewLocalDir("atlas/migrations")
+	if err != nil {
+		log.Fatalf("failed creating atlas migration directory: %v", err)
+	}
+
+	// Migrate diff options.
+	opts := []schema.MigrateOption{
+		schema.WithDir(dir),                          // provide migration directory
+		schema.WithMigrationMode(schema.ModeInspect), // provide migration mode
+		schema.WithDialect(dialect.MySQL),            // Ent dialect to use
+		schema.WithFormatter(atlas.DefaultFormatter),
+	}
+
+	// Generate migrations using Atlas support for MySQL (note the Ent dialect option passed above).
+
+	if err = migrate.NamedDiff(ctx, dsn, os.Args[1], opts...); err != nil {
+		log.Fatalf("failed generating migration file: %v", err)
 	}
 }

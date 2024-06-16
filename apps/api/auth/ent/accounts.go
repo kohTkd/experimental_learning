@@ -5,6 +5,7 @@ package ent
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
@@ -18,10 +19,12 @@ type Accounts struct {
 	ID int `json:"id,omitempty"`
 	// Email holds the value of the "email" field.
 	Email string `json:"email,omitempty"`
-	// AccountType holds the value of the "account_type" field.
-	AccountType int `json:"account_type,omitempty"`
 	// Password holds the value of the "password" field.
-	Password     string `json:"password,omitempty"`
+	Password string `json:"password,omitempty"`
+	// CreatedAt holds the value of the "created_at" field.
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	// UpdateAt holds the value of the "update_at" field.
+	UpdateAt     time.Time `json:"update_at,omitempty"`
 	selectValues sql.SelectValues
 }
 
@@ -30,10 +33,12 @@ func (*Accounts) scanValues(columns []string) ([]any, error) {
 	values := make([]any, len(columns))
 	for i := range columns {
 		switch columns[i] {
-		case accounts.FieldID, accounts.FieldAccountType:
+		case accounts.FieldID:
 			values[i] = new(sql.NullInt64)
 		case accounts.FieldEmail, accounts.FieldPassword:
 			values[i] = new(sql.NullString)
+		case accounts.FieldCreatedAt, accounts.FieldUpdateAt:
+			values[i] = new(sql.NullTime)
 		default:
 			values[i] = new(sql.UnknownType)
 		}
@@ -61,17 +66,23 @@ func (a *Accounts) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				a.Email = value.String
 			}
-		case accounts.FieldAccountType:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field account_type", values[i])
-			} else if value.Valid {
-				a.AccountType = int(value.Int64)
-			}
 		case accounts.FieldPassword:
 			if value, ok := values[i].(*sql.NullString); !ok {
 				return fmt.Errorf("unexpected type %T for field password", values[i])
 			} else if value.Valid {
 				a.Password = value.String
+			}
+		case accounts.FieldCreatedAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field created_at", values[i])
+			} else if value.Valid {
+				a.CreatedAt = value.Time
+			}
+		case accounts.FieldUpdateAt:
+			if value, ok := values[i].(*sql.NullTime); !ok {
+				return fmt.Errorf("unexpected type %T for field update_at", values[i])
+			} else if value.Valid {
+				a.UpdateAt = value.Time
 			}
 		default:
 			a.selectValues.Set(columns[i], values[i])
@@ -112,11 +123,14 @@ func (a *Accounts) String() string {
 	builder.WriteString("email=")
 	builder.WriteString(a.Email)
 	builder.WriteString(", ")
-	builder.WriteString("account_type=")
-	builder.WriteString(fmt.Sprintf("%v", a.AccountType))
-	builder.WriteString(", ")
 	builder.WriteString("password=")
 	builder.WriteString(a.Password)
+	builder.WriteString(", ")
+	builder.WriteString("created_at=")
+	builder.WriteString(a.CreatedAt.Format(time.ANSIC))
+	builder.WriteString(", ")
+	builder.WriteString("update_at=")
+	builder.WriteString(a.UpdateAt.Format(time.ANSIC))
 	builder.WriteByte(')')
 	return builder.String()
 }
