@@ -85,4 +85,3 @@ docker.database-auth.down:
 	make docker.down container='database-auth'
 docker.database-auth.attach:
 	make docker.attach container='database-auth'
-

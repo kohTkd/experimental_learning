@@ -3,6 +3,8 @@ cmd=
 container=
 opts=
 
+.SILENT:
+
 all:
 	@echo 'this is dummy'
 

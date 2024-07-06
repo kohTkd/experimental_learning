@@ -38,6 +38,7 @@ services:
       context: ./apps/api/auth
       # api/authディレクトリからの相対パス
       dockerfile: ../../../docker/api/auth/Dockerfile
+      target: development
     volumes:
       - ./apps/api/auth:/app
       - go_pkg:/go/pkg/mod
