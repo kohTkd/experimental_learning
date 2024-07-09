@@ -9,12 +9,12 @@ type Registry struct {
 	HelloHandler *handler.HelloServerHandler
 }
 
-func NewRegistry(store *repository.Client) *Registry {
+func NewRegistry(store *repository.Store) *Registry {
 	r := &Registry{}
 	r.register(store)
 	return r
 }
 
-func (r *Registry) register(store *repository.Client) {
+func (r *Registry) register(store *repository.Store) {
 	r.registerHello()
 }

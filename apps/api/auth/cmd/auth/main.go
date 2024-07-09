@@ -24,7 +24,7 @@ func init() {
 }
 
 func main() {
-	c, _ := repository.NewClient()
+	c, _ := repository.NewStore()
 	r := newRegistry(c)
 	s := newServer()
 
@@ -33,7 +33,7 @@ func main() {
 	s.Listen()
 }
 
-func newRegistry(c *repository.Client) *registry.Registry {
+func newRegistry(c *repository.Store) *registry.Registry {
 	return registry.NewRegistry(c)
 }
 
